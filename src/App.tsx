@@ -4,7 +4,7 @@ import MainPage from './view/mainPage'
 
 function App() {
   return (
-    <div>
+    <div className="flex max-h-screen flex-col">
       <Topbar />
       <Routes>
         <Route path="/" element={<MainPage />} />

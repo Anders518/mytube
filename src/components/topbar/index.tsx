@@ -1,19 +1,24 @@
 import { Link } from 'react-router-dom'
-import { MenuIcon, SearchIcon, VoiceIcon } from './icon'
+import {
+  AccountIcon,
+  MenuIcon,
+  NotificationsIcon,
+  SearchIcon,
+  UploadIcon,
+  VoiceIcon
+} from './icon'
 import Button from './button'
 
 const Topbar = () => {
   return (
-    <div className="y-2 mx-3 mb-6 flex items-center gap-10 py-2 shadow-sm lg:gap-20">
+    <div className="y-2 mx-3 flex items-center justify-between gap-10 py-2 shadow-sm lg:gap-20">
       <Button>
-        <MenuIcon className="h-6 w-6 items-center  justify-center" />
+        <MenuIcon className="h-6 w-6" />
       </Button>
-      <div>
-        <Link to="/">
-          <img src="/vite.svg" alt="vite logo" />
-        </Link>
-      </div>
-      <div>
+      <Link to="/" className="justify-self-start">
+        <img src="/vite.svg" alt="vite logo" />
+      </Link>
+      <div className="flex flex-row gap-20 justify-self-center">
         <form className="flex w-64 lg:w-96">
           <input
             type="text"
@@ -26,11 +31,21 @@ const Topbar = () => {
             <SearchIcon className="h-6 w-6" />
           </button>
         </form>
+        <Button>
+          <VoiceIcon className="h-6 w-6" />
+        </Button>
       </div>
-      <Button className="bg-slate-200 ">
-        <VoiceIcon className="h-6 w-6" />
-      </Button>
-      <div>avtar</div>
+      <div className="justify-self-end">
+        <Button>
+          <UploadIcon className="h-6 w-6" />
+        </Button>
+        <Button>
+          <NotificationsIcon className="h-6 w-6" />
+        </Button>
+        <Button>
+          <AccountIcon className="h-6 w-6" />
+        </Button>
+      </div>
     </div>
   )
 }

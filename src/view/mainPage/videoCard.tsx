@@ -1,19 +1,18 @@
 import { Link } from 'react-router-dom'
 import { VideoType } from '../../data/home'
+import { convertDate, convertNumber } from '../../utils/convert'
 
 const VideoCard = (props: VideoType) => {
   if (props === undefined) {
     return null
   }
   return (
-    <div className="grid gap-2">
-      <Link to={`/video/${props.id}`}>
-        <img
-          className="rounded-lg "
-          src={props.thumbnailUrl}
-          alt={`thumbnail of ${props.title}`}
-        />
-      </Link>
+    <Link to={`/video/${props.id}`} className="grid gap-2 text-slate-400">
+      <img
+        className="rounded-lg "
+        src={props.thumbnailUrl}
+        alt={`thumbnail of ${props.title}`}
+      />
       <div className="flex gap-2  text-sm ">
         <Link to={`/video/${props.id}`} className="flex-shrink-0">
           <img
@@ -26,10 +25,12 @@ const VideoCard = (props: VideoType) => {
             {props.title}
           </Link>
           <Link to={`/channel/${props.channel.id}`}>{props.channel.name}</Link>
-          <div>other info</div>
+          <div>
+            {`${convertNumber(props.views)} ${convertDate(props.postedAt)}`}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
