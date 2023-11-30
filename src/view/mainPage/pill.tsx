@@ -14,7 +14,7 @@ const Pills = (props: Props) => {
 
   if (!props.categories) return null
   return (
-    <div className="sticky top-0 flex flex-nowrap gap-3 overflow-x-hidden bg-white">
+    <div className="sticky top-0 my-3 flex flex-nowrap gap-3 overflow-x-hidden bg-white">
       {props.categories.map(categorie => (
         <Pill
           key={categorie}

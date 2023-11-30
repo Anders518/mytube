@@ -44,3 +44,6 @@ export const playlists = [
   { id: '4', name: 'Non-Dev' },
   { id: '5', name: 'TypeScript' }
 ]
+
+export type subscriptionType = (typeof subscriptions)[0] | undefined
+export type playlistType = (typeof playlists)[0] | undefined

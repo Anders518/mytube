@@ -8,24 +8,19 @@ import {
   VoiceIcon
 } from './icon'
 import Button from './button'
+import { useDispatch } from 'react-redux'
+import { toggleSidebar } from '../../reducers/sidebarReducer'
 
 const Topbar = () => {
   return (
-    <div className="mx-3 flex justify-between gap-10 py-2 lg:gap-20">
-      <div className="flex flex-shrink-0 gap-4">
-        <Button>
-          <MenuIcon className="h-6 w-6" />
-        </Button>
-        <Link to="/">
-          <img src="/vite.svg" alt="vite logo" />
-        </Link>
-      </div>
-      <form className="flex flex-grow justify-center gap-4">
+    <div className="mx-4 flex justify-between gap-10 py-2 lg:gap-20">
+      <TopbarFirstSection />
+      <form className="hidden flex-grow justify-center gap-4 md:flex">
         <div className="flex max-w-4xl flex-grow">
           <input
             type="text"
             placeholder="Search"
-            className="basis-4/5 justify-center rounded-l-full rounded-r-none border border-r-0  border-slate-300 p-2 shadow-inner outline-none"
+            className="w-full justify-center rounded-l-full rounded-r-none border border-r-0  border-slate-300 p-2 shadow-inner outline-none"
           />
           <button
             type="submit"
@@ -48,6 +43,24 @@ const Topbar = () => {
           <AccountIcon className="h-6 w-6" />
         </Button>
       </div>
+    </div>
+  )
+}
+
+export const TopbarFirstSection = () => {
+  const dispatch = useDispatch()
+
+  const toggle = () => {
+    dispatch(toggleSidebar())
+  }
+  return (
+    <div className="flex flex-shrink-0 gap-4">
+      <Button onClick={toggle}>
+        <MenuIcon className="h-6 w-6" />
+      </Button>
+      <Link to="/">
+        <img src="/vite.svg" alt="vite logo" />
+      </Link>
     </div>
   )
 }
