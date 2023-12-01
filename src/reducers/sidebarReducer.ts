@@ -7,7 +7,7 @@ const SCREEN_TYPE = {
   xl: 1280
 }
 const isScreenLarge = () => {
-  return window.innerWidth > SCREEN_TYPE.md
+  return window.innerWidth > SCREEN_TYPE.lg
 }
 
 interface SidebarState {
