@@ -1,50 +1,96 @@
-import { ChevronLeft } from 'lucide-react'
-import { useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { setCategoryPill } from '../../reducers/categoryPillReducer'
 interface Props {
-  categories: string[] | undefined
+  categories?: string[]
 }
 
 interface PillProps {
-  categorie: string
-  selected: string | null
-  setSelected: React.Dispatch<React.SetStateAction<string | null>>
+  category: string
 }
 
+const TRANSLATE_AMOUNT = 200
+
 const Pills = (props: Props) => {
-  const [selected, setSelected] = useState<string | null>(null)
+  const [showLeftButton, setShowLeftButton] = useState<boolean>(false)
+  const [showRightButton, setShowRightButton] = useState<boolean>(false)
+  const [scrollAmount, setScrollAmount] = useState<number>(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!containerRef.current) return
+    const observer = new ResizeObserver(entries => {
+      const container = entries[0]?.target
+      if (container === null) return null
+      setShowLeftButton(scrollAmount > 0)
+      setShowRightButton(
+        scrollAmount < container.scrollWidth - container.clientWidth
+      )
+    })
+    observer.observe(containerRef.current)
+  }, [props.categories, scrollAmount])
 
   if (!props.categories) return null
+
   return (
-    <div className="sticky top-0 my-3 flex">
-      <div className="flex flex-nowrap gap-3 overflow-x-hidden bg-white">
-        {props.categories.map(categorie => (
-          <Pill
-            key={categorie}
-            categorie={categorie}
-            selected={selected}
-            setSelected={setSelected}
-          />
+    <div
+      ref={containerRef}
+      className="sticky top-0 z-10 flex items-center overflow-x-hidden bg-white py-3">
+      <div
+        className={`flex gap-3 whitespace-nowrap transition -translate-x-[${scrollAmount}px] duration-500`}>
+        {props.categories.map(category => (
+          <Pill key={category} category={category} />
         ))}
-        <div className="absolute left-0 flex items-center">
-          <button>
+      </div>
+      {showLeftButton && (
+        <div className="absolute left-0 h-full w-24  bg-gradient-to-r from-white to-transparent">
+          <button
+            className="h-full"
+            onClick={() =>
+              setScrollAmount(Math.max(scrollAmount - TRANSLATE_AMOUNT, 0))
+            }>
             <ChevronLeft />
           </button>
         </div>
-      </div>
+      )}
+      {showRightButton && (
+        <div className="absolute right-0 flex h-full w-24 justify-end bg-gradient-to-r from-transparent to-white">
+          <button
+            className="h-full"
+            onClick={() => {
+              if (!containerRef.current) return scrollAmount
+              const width = containerRef.current.clientWidth
+              const scrollWidth = containerRef.current.scrollWidth
+              const maxScrollAmount = scrollWidth - width
+              setScrollAmount(
+                Math.min(scrollAmount + TRANSLATE_AMOUNT, maxScrollAmount)
+              )
+            }}>
+            <ChevronRight />
+          </button>
+        </div>
+      )}
     </div>
   )
 }
 
 const Pill = (props: PillProps) => {
+  const { categoryPill } = useSelector((state: RootState) => state.categoryPill)
   let selectStyle = 'bg-gray-200'
-  if (props.selected === props.categorie) {
+  if (categoryPill === props.category) {
     selectStyle = 'bg-black text-white'
+  }
+  const dispatch = useDispatch()
+  const updateCategoryPill = () => {
+    dispatch(setCategoryPill(props.category))
   }
   return (
     <button
-      onClick={() => props.setSelected(props.categorie)}
+      onClick={updateCategoryPill}
       className={`whitespace-nowrap rounded-lg  px-3 py-1 ${selectStyle}`}>
-      {props.categorie}
+      {props.category}
     </button>
   )
 }
