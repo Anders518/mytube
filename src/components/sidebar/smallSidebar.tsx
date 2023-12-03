@@ -29,7 +29,7 @@ interface SidebarItemProps {
 const SidebarItem = (props: SidebarItemProps) => {
   return (
     <Link
-      className="flex flex-col items-center gap-1 rounded-lg px-1 py-4 hover:bg-gray-100"
+      className="flex flex-col items-center gap-1 rounded-lg px-1 py-4 hover:bg-gray-100 dark:hover:bg-slate-700"
       to={props.to}>
       <props.Icon className="h-6 w-6" />
       <div className="capitalize">{props.name}</div>

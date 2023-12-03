@@ -26,23 +26,7 @@ const Topbar = () => {
         showSearchBar={showSearchBar}
         setShowSearchBar={setShowSearchBar}
       />
-      <div className="flex-nowrap items-center">
-        <Button onClick={toggleSearchBar} className="md:hidden">
-          <SearchIcon className="h-6 w-6" />
-        </Button>
-        <Button className="md:hidden">
-          <VoiceIcon className="h-6 w-6" />
-        </Button>
-        <Button>
-          <UploadIcon className="h-6 w-6" />
-        </Button>
-        <Button>
-          <NotificationsIcon className="h-6 w-6" />
-        </Button>
-        <Button>
-          <AccountIcon className="h-6 w-6" />
-        </Button>
-      </div>
+      <TopbarLastSection toggleSearchBar={toggleSearchBar} />
     </div>
   )
 }
@@ -74,7 +58,9 @@ const SearchBar = (props: SearchBarProps) => {
   return (
     <form
       className={`${
-        props.showSearchBar ? 'absolute inset-0 flex bg-white' : 'hidden'
+        props.showSearchBar
+          ? 'absolute inset-0 flex bg-white dark:bg-slate-900'
+          : 'hidden'
       } flex-grow justify-center gap-4 py-2 md:flex`}>
       {props.showSearchBar && (
         <Button onClick={() => props.setShowSearchBar(false)}>
@@ -99,6 +85,34 @@ const SearchBar = (props: SearchBarProps) => {
         </Button>
       </div>
     </form>
+  )
+}
+
+interface TopbarLastSectionProps {
+  toggleSearchBar: () => void
+}
+
+const TopbarLastSection = (props: TopbarLastSectionProps) => {
+  return (
+    <>
+      <div className="flex-nowrap items-center">
+        <Button onClick={props.toggleSearchBar} className="md:hidden">
+          <SearchIcon className="h-6 w-6" />
+        </Button>
+        <Button className="md:hidden">
+          <VoiceIcon className="h-6 w-6" />
+        </Button>
+        <Button>
+          <UploadIcon className="h-6 w-6" />
+        </Button>
+        <Button>
+          <NotificationsIcon className="h-6 w-6" />
+        </Button>
+        <Button>
+          <AccountIcon className="h-6 w-6" />
+        </Button>
+      </div>
+    </>
   )
 }
 

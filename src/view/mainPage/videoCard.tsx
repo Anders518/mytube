@@ -21,7 +21,7 @@ const VideoCard = (props: VideoType) => {
   }
   return (
     <div
-      className="relative grid gap-2 text-slate-400"
+      className="relative grid gap-2 text-neutral-400 dark:text-neutral-200"
       onMouseEnter={() => setVideoPlaying(true)}
       onMouseLeave={() => setVideoPlaying(false)}>
       <Link to={`/video/${props.id}`} className="relative">
@@ -30,7 +30,7 @@ const VideoCard = (props: VideoType) => {
           alt={props.title}
           className="rounded-lg transition-[border-radius] duration-300 hover:rounded-none"
         />
-        <div className="absolute bottom-0 right-0 rounded-lg bg-black opacity-70">
+        <div className="absolute bottom-0 right-0 rounded-lg bg-black opacity-70 dark:bg-neutral-300">
           {`${props.duration}`}
         </div>
         <video
@@ -49,7 +49,9 @@ const VideoCard = (props: VideoType) => {
             className="h-12 w-12 rounded-full border"></img>
         </Link>
         <div className="flex flex-col">
-          <div className="font-bold text-black">{props.title}</div>
+          <div className="text-lg font-bold text-black dark:text-white">
+            {props.title}
+          </div>
           <Link to={`/channel/${props.channel.id}`}>{props.channel.name}</Link>
           <div>
             {`${convertNumber(props.views)} ${convertDate(props.postedAt)}`}

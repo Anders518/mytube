@@ -37,15 +37,16 @@ const Pills = (props: Props) => {
   return (
     <div
       ref={containerRef}
-      className="sticky top-0 z-10 flex items-center overflow-x-hidden bg-white py-3">
+      className="sticky top-0 z-10 flex items-center overflow-x-hidden bg-white py-3 dark:bg-slate-900">
       <div
-        className={`flex gap-3 whitespace-nowrap transition -translate-x-[${scrollAmount}px] duration-500`}>
+        className={`flex gap-3 whitespace-nowrap transition duration-500`}
+        style={{ transform: `translateX(-${scrollAmount}px)` }}>
         {props.categories.map(category => (
           <Pill key={category} category={category} />
         ))}
       </div>
       {showLeftButton && (
-        <div className="absolute left-0 h-full w-24  bg-gradient-to-r from-white to-transparent">
+        <div className="absolute left-0 h-full w-24  bg-gradient-to-r from-white to-transparent dark:from-slate-900">
           <button
             className="h-full"
             onClick={() =>
@@ -56,7 +57,7 @@ const Pills = (props: Props) => {
         </div>
       )}
       {showRightButton && (
-        <div className="absolute right-0 flex h-full w-24 justify-end bg-gradient-to-r from-transparent to-white">
+        <div className="absolute right-0 flex h-full w-24 justify-end bg-gradient-to-r from-transparent to-white dark:to-slate-900">
           <button
             className="h-full"
             onClick={() => {
@@ -78,9 +79,9 @@ const Pills = (props: Props) => {
 
 const Pill = (props: PillProps) => {
   const { categoryPill } = useSelector((state: RootState) => state.categoryPill)
-  let selectStyle = 'bg-gray-200'
+  let selectStyle = 'bg-gray-200 dark:bg-black dark:text-white'
   if (categoryPill === props.category) {
-    selectStyle = 'bg-black text-white'
+    selectStyle = 'bg-black text-white dark:bg-white dark:text-black'
   }
   const dispatch = useDispatch()
   const updateCategoryPill = () => {

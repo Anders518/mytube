@@ -30,14 +30,14 @@ const LargeSidebar = (props: LargeSidebarProps) => {
 
   return (
     <div
-      className={`absolute top-0 w-52 flex-col divide-y-2 overflow-y-auto bg-white lg:sticky ${
+      className={`absolute top-0 w-52 flex-col divide-y-2 overflow-y-auto dark:bg-slate-900 lg:sticky ${
         props.sidebarState === 'largeOpen' ? 'lg:flex' : 'lg:hidden'
       } ${
         props.sidebarState === 'smallOpen'
           ? 'z-[999] flex max-h-screen bg-white'
           : 'hidden'
       }`}>
-      <div className="sticky top-0 mx-4  bg-white  py-2 lg:hidden">
+      <div className="sticky top-0 z-10 bg-white px-4 py-2 dark:bg-slate-900 lg:hidden">
         <TopbarFirstSection />
       </div>
       <div>
@@ -92,7 +92,7 @@ interface LargeSidebarItemProps {
 const LargeSidebarItem = (props: LargeSidebarItemProps) => {
   return (
     <Link
-      className="mx-4 flex items-center gap-4 rounded-lg py-3 hover:bg-gray-100"
+      className="mx-1 flex items-center gap-4 rounded-lg px-4 py-3 hover:bg-gray-100 dark:hover:bg-slate-700"
       to={props.to}>
       {typeof props.Icon === 'string' ? (
         <img
@@ -136,21 +136,23 @@ const LargeSidebarSection = ({
   }, [childrenLength, expandNumber])
 
   return (
-    <div>
+    <div className="px-1 py-2">
       {tilte && (
         <div className="px-4 py-2 text-sm font-bold capitalize">{tilte}</div>
       )}
       {childrenToShow}
       {showExpand && (
         <button
-          className="flex w-full items-center gap-4 rounded-lg p-3 capitalize hover:bg-gray-100"
+          className="mx-1 flex items-center gap-4 rounded-lg px-4 py-3 capitalize hover:bg-gray-100 dark:hover:bg-slate-700"
           onClick={() => setShowMore(!showMore)}>
           <ChevronUp
             className={`h-6 w-6 ${
               showMore ? '' : 'rotate-180'
             } transition duration-300`}
           />
-          {showMore ? 'show less' : 'show more'}
+          <div className="overflow-hidden text-ellipsis whitespace-nowrap capitalize">
+            {showMore ? 'show less' : 'show more'}
+          </div>
         </button>
       )}
     </div>

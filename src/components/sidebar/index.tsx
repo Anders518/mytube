@@ -23,7 +23,7 @@ const Sidebar = ({ subscribe, playList }: Props) => {
       <SmallSidebar sidebarState={sidebarState} />
       {sidebarState === 'smallOpen' && (
         <div
-          className="fixed inset-0 z-[999] bg-neutral-400 opacity-50 lg:hidden"
+          className="fixed inset-0 z-[999] bg-neutral-400 opacity-50 dark:bg-neutral-700 lg:hidden"
           onClick={close}
         />
       )}
